@@ -5,15 +5,15 @@ def run_test(category, capabilities):
     data = {"software_category": category, "capabilities": capabilities}
     print("Input:", data)
 
-    resp = requests.post("http://localhost:8000/vendor_qualification", json=data)
+    resp = requests.post("http://localhost:8000/vendor_qualification", json=data)#change to 5000 for default
     results = resp.json()["results"]
 
     print("Number of results:", len(results))
     for i, r in enumerate(results, 1):
         note = ""
-        # Only annotate if the queried category is present in custom_categories
         if category.lower() in [c.lower() for c in r["custom_categories"]]:
             note = " (related to " + category + " according to description and category)"
+
         print(
             str(i) + ". " +
             r['product_name'] +
